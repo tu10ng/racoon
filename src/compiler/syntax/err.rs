@@ -3,7 +3,7 @@ use crate::compiler::span::{Pos, Span};
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct LexError {
     pub lex_error_kind: LexErrorKind,
-    pub span: Pos,
+    pub pos: Pos,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]

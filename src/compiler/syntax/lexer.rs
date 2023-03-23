@@ -120,7 +120,7 @@ impl<T> Lexer<T>
             | ']' | '{' | '}' | ',' | ';' => self.lex_operator(),
             c => Err(LexError{
                 lex_error_kind: LexErrorKind::UnexpectedCharacter(c),
-                span: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
+                pos: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
             }),
         };
 
@@ -177,7 +177,7 @@ impl<T> Lexer<T>
             }),
             Err(_) => Err(LexError {
                 lex_error_kind: LexErrorKind::IllegalLiteral,
-                span: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
+                pos: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
             })
         }
     }
@@ -252,7 +252,7 @@ impl<T> Lexer<T>
             } else {
                 return Err(LexError {
                     lex_error_kind: LexErrorKind::UnexpectedCharacter('|'),
-                    span: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
+                    pos: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
                 })
             }
             '&' => if next_if_ch_eq!(self.iter, '&') {
@@ -260,7 +260,7 @@ impl<T> Lexer<T>
             } else {
                 return Err(LexError {
                     lex_error_kind: LexErrorKind::UnexpectedCharacter('&'),
-                    span: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
+                    pos: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
                 })
             }
             '(' => TokenType::LParen,
@@ -294,7 +294,7 @@ impl<T> Lexer<T>
                     Some((_, c)) => comment.push(c),
                     None => return Err(LexError {
                         lex_error_kind: LexErrorKind::UnexpectedEOF,
-                        span: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
+                        pos: self.iter.peek().map_or(Pos::MAX, |(pos, _)| *pos)
                     })
                 }
             }
